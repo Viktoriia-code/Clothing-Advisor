@@ -42,7 +42,7 @@ export default function Home() {
       <div className="absolute inset-0 flex items-center justify-center">
         <WeatherCard
           temperature={`${weather.temp}°C`}
-          description={`Wind ${weather.wind} m/s`}
+          description={weather.weatherType}
         />
       </div>
     </div>
