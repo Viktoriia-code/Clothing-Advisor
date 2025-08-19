@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import WeatherCard from "./components/WeatherCard";
 import { getWeather } from "./lib/weatherApi";
+import OutfitInput from "./components/OutfitInput";
+
 // import BackgroundSwitcher from "./components/BackgroundSwitcher";
 
 function mapWeatherCode(code) {
@@ -11,8 +13,23 @@ function mapWeatherCode(code) {
   return "sunny";
 }
 
+function getOutfitSuggestion(temp, userInput) {
+  if (temp < 5) {
+    return `You plan to wear ${userInput}. It's very cold outside, better wear a thick coat or down jacket.`;
+  }
+  if (temp < 15) {
+    return `You plan to wear ${userInput}. It's a bit chilly, consider adding a hoodie or jacket.`;
+  }
+  if (temp < 25) {
+    return `You plan to wear ${userInput}. The temperature is comfortable, that should be totally fine.`;
+  }
+  return `You plan to wear ${userInput}. It's hot outside, light clothing should be enough.`;
+}
+
+
 export default function Home() {
   const [weather, setWeather] = useState(null);
+  const [outfitSuggestion, setOutfitSuggestion] = useState("");
 
   const latitude = 60.17;
   const longitude = 24.94;
@@ -35,16 +52,21 @@ export default function Home() {
     return <div className="text-center mt-10">Loading...</div>;
   }
 
-  return (
-    <div className="relative h-screen w-full">
-      {/* <BackgroundSwitcher weatherType={weather.weatherType} /> */}
-
-      <div className="absolute inset-0 flex items-center justify-center">
-        <WeatherCard
-          temperature={`${weather.temp}°C`}
-          description={weather.weatherType}
-        />
-      </div>
+return (
+  <div className="relative h-screen w-full">
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+      <WeatherCard
+        temperature={`${weather.temp}°C`}
+        description={weather.weatherType}
+      />
+      <OutfitInput
+        onSubmit={(text) => {
+          const suggestion = getOutfitSuggestion(weather.temp, text);
+          alert(suggestion);
+        }}
+      />
     </div>
-  );
+  </div>
+);
+
 }
