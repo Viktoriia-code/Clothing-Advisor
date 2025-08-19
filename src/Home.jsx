@@ -56,7 +56,7 @@ export default function Home() {
 
   return (
     <div className="relative h-screen w-full">
-      {/* <BackgroundSwitcher weatherType={weather.weatherType} /> */}
+      <BackgroundSwitcher weatherType={weather.weatherType} />
 
       <div className="absolute inset-0 flex items-center justify-center">
         <WeatherCard
