@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import WeatherCard from "./components/WeatherCard";
 import { getWeather } from "./lib/weatherApi";
-// import BackgroundSwitcher from "./components/BackgroundSwitcher";
+import BackgroundSwitcher from "./components/BackgroundSwitcher";
+import './app.css';
 
 function mapWeatherCode(code) {
   if (code === 0) return "sunny";
@@ -37,7 +38,7 @@ export default function Home() {
 
   return (
     <div className="relative h-screen w-full">
-      {/* <BackgroundSwitcher weatherType={weather.weatherType} /> */}
+      <BackgroundSwitcher weatherType={weather.weatherType} />
 
       <div className="absolute inset-0 flex items-center justify-center">
         <WeatherCard
