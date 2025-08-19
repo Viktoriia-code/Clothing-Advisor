@@ -1,12 +1,19 @@
-// src/pages/Home.jsx
+// src/Home.jsx
 import { useState, useEffect } from "react";
 import WeatherCard from "./components/WeatherCard";
 import { getWeather } from "./lib/weatherApi";
+// import BackgroundSwitcher from "./components/BackgroundSwitcher";
+
+function mapWeatherCode(code) {
+  if (code === 0) return "sunny";
+  if (code >= 51 && code <= 67) return "rain";
+  if (code >= 71 && code <= 77) return "snow";
+  return "sunny";
+}
 
 export default function Home() {
   const [weather, setWeather] = useState(null);
 
-  // 赫尔辛基经纬度
   const latitude = 60.17;
   const longitude = 24.94;
 
@@ -17,6 +24,7 @@ export default function Home() {
       setWeather({
         temp: data.current.temperature_2m,
         wind: data.current.wind_speed_10m,
+        weatherType: mapWeatherCode(data.daily.weather_code[0]),
       });
     }
 
@@ -28,11 +36,15 @@ export default function Home() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <WeatherCard
-        temperature={`${weather.temp}°C`}
-        description={`Wind ${weather.wind} m/s`}
-      />
+    <div className="relative h-screen w-full">
+      {/* <BackgroundSwitcher weatherType={weather.weatherType} /> */}
+
+      <div className="absolute inset-0 flex items-center justify-center">
+        <WeatherCard
+          temperature={`${weather.temp}°C`}
+          description={`Wind ${weather.wind} m/s`}
+        />
+      </div>
     </div>
   );
 }
