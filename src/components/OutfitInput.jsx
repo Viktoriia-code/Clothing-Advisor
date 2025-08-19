@@ -12,7 +12,7 @@ export default function OutfitInput({ onSubmit }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 flex gap-2">
+    <form onSubmit={handleSubmit} className="mt-4 flex gap-4 flex-col">
       <input
         type="text"
         placeholder="What are you planning to wear?"
