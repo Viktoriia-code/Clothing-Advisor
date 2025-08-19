@@ -58,12 +58,16 @@ export default function Home() {
     <div className="relative h-screen w-full">
       <BackgroundSwitcher weatherType={weather.weatherType} />
 
-      <div className="absolute inset-0 flex items-center justify-center">
-        <WeatherCard
-          temperature={`${weather.temp}°C`}
-          description={weather.weatherType}
-        />
-      </div>
+      <WeatherCard
+        temperature={`${weather.temp}°C`}
+        description={weather.weatherType}
+      />
+      <OutfitInput
+        onSubmit={(text) => {
+          const suggestion = getOutfitSuggestion(weather.temp, text);
+          alert(suggestion);
+        }}
+      />
     </div>
   );
 }
